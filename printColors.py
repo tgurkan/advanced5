@@ -1,21 +1,22 @@
 #!/usr/bin/python
-#changes added
-import readline
 import operator
 from colorama import init
 init()
 from colorama import Fore
-def calculate(string):
+
+operators = {
+	'+': operator.add,
+	'-': operator.sub,
+	'*': operator.mul,
+	'/': operator.truediv,
+}
+
+def calculate(myarg):
 	stack = list()
-	operators = {
-	'+' : operator.add, 
-	'-' : operator.sub,
-	'*' : operator.mul,
-	'/' : operator.truediv,}
-	for token in string.split():
+	for token in myarg.split():
 		try:
 			token = int(token)
-			stack.append(token) #Add numbers only
+			stack.append(token)
 		except ValueError:
 			function = operators[token]
 			arg2 = stack.pop()
@@ -29,9 +30,8 @@ def calculate(string):
 
 def main():
 	while True:
-		print(Fore.RED + calculate(input("rpn calc> ")))
+		result = calculate(input("rpn calc> "))
+		print(Fore.RED + "Result: ", result)
 
-if __name__ == '__main__': # Note that's "underscore underscore n a m e ..."
+if __name__ == '__main__':
 	main()
-
-
